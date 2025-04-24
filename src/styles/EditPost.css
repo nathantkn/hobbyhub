@@ -1,0 +1,103 @@
+.edit-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+}
+
+.edit-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.edit-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+input, .avatar-select {
+    width: 90%;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 18px;
+    padding-left: 10px;
+    background-color: #333;
+    color: white;
+}
+
+.avatar-select {
+    cursor: pointer;
+}
+
+.avatar-preview {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.avatar-preview img {
+    height: 180px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.avatar-preview img:hover {
+    transform: scale(1.05);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: inherit;
+    color: white;
+    transition: border-color 0.25s, background-color 0.25s, transform 0.25s;
+}
+
+.back-button {
+    background-color: #333;
+}
+
+.update-button {
+    background-color: #1a1a1a;
+}
+
+.delete-button {
+    background-color: #870404;
+}
+
+.back-button:hover,
+.update-button:hover {
+    border-color: #646cff;
+}
+
+.delete-button:hover {
+    border-color: #ff6464;
+}

@@ -1,0 +1,36 @@
+.gallery-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.gallery-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+}
+
+.create-animal-btn {
+    padding: 0.8em 2em;
+    font-size: 18px;
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.create-animal-btn:hover {
+    border-color: #646cff;
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
+}

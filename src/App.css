@@ -1,0 +1,68 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.App {
+  font-family: Avenir, "Century Gothic", sans-serif;
+  font-weight: 100; 
+  font-style: normal;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.content-container {
+  margin-left: 15%;
+  width: 85%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  color: white;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+  border-radius: 12px;
+  height: auto;
+  object-fit: cover;
+}
+
+.app-description h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.app-description p {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+.gallery-button {
+  padding: 0.8em 1.8em;
+  font-size: 18px;
+  margin-top: 20px;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-button:hover {
+  border-color: #646cff;
+  background-color: #2a2a2a;
+}

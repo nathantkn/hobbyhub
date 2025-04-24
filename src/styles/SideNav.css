@@ -1,0 +1,64 @@
+.sideNav {
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    background-color: hsla(0, 0%, 100%, .1);
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+
+    width: 14%;
+    font-size: larger;
+    font-weight: bolder;
+    bottom: 0;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    size: 80px;
+    padding-top: 35px;
+    padding-right: 10px;
+}
+
+.menu {
+    color: white;
+}
+
+.menu-item {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: white;
+}
+
+.menu ul {
+    padding-left: 5px;
+}
+
+.menu a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.home-link {
+    width: 75px;
+    padding-bottom: 35px;
+}

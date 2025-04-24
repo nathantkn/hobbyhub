@@ -1,0 +1,27 @@
+.ReadPosts {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.ReadPosts-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    width: 100%;
+}
+
+.no-animals-message {
+    text-align: center;
+    color: white;
+    padding: 40px;
+}
+
+.post-details {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+}
