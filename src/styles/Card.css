@@ -2,44 +2,46 @@
     backdrop-filter: blur(2px);
     border: 1px solid rgba(153, 153, 153, 0.497);
     border-radius: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 10px;
+    padding: 20px;
     margin-bottom: 25px;
-    width: 400px;
-    text-align: center;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    color:white;
-    font-size: 30px;
+    color: white;
+    font-size: 24px;
     margin-bottom: 10px;
 }
 
-.author {
-    color:white;
-    margin-bottom: 20px;
-    font-size: 15px;
+.description {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.4;
 }
 
-.avatar {
-    height: 150px;
-}
-
-.betButton {
+.post-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
     border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    color:white;
-    cursor: pointer;
-    transition: border-color 0.25s;
+    margin-bottom: 15px;
 }
-.betButton:hover {
-    border-color: #646cff;
+
+.post-stats {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.likes-count {
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .card-link {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../styles/PostDetails.css';
 import { supabase } from '../Client';
-// import { getAvatarNameFromUrl, getAvatarDescription } from '../utils/descriptions';
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -28,7 +27,7 @@ const PostDetails = () => {
     }, [id]);
 
     if (loading) {
-        return <div className="post-details">Loading animal details...</div>;
+        return <div className="post-details">Loading post details...</div>;
     }
 
     if (!post) {
@@ -42,9 +41,6 @@ const PostDetails = () => {
             </div>
         );
     }
-
-    // const avatarName = getAvatarNameFromUrl(post.avatar);
-    const avatarDescription = getAvatarDescription(avatarName);
 
     return (
         <div className="post-details">

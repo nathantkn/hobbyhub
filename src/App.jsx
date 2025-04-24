@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRoutes, Link } from 'react-router-dom';
 import { supabase } from './Client';
 
-import TopNav  from './components/TopNav';
+import TopNav from './components/TopNav';
 import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
 import PostDetails from './pages/PostDetails';
@@ -17,7 +17,8 @@ const App = () => {
     const fetchPosts = async () => {
       const { data, error } = await supabase
         .from('Posts')
-        .select();
+        .select()
+        .order('created_at', { ascending: false });
         
       if (error) {
         console.error("Error fetching posts:", error);
@@ -41,10 +42,11 @@ const App = () => {
             {posts.map((post) => (
               <Card 
                 id={post.id} 
-                name={post.title} 
-                superpower={post.description} 
-                avatar={post.image} 
-                key={post.id} 
+                title={post.title} 
+                description={post.description} 
+                image={post.image} 
+                likes={post.likes}
+                key={post.id}
               />
             ))}
           </div>

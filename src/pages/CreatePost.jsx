@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CreatePost.css';
 import { supabase } from '../Client';
-// import { avatarOptions } from '../utils/avatars';
 
 const CreatePost = () => {
     const navigate = useNavigate();
-    const [animal, setAnimal] = useState({
-        name: "",
-        superpower: "",
-        avatar: "",
-        selectedAvatarName: ""
+    const [post, setPost] = useState({
+        title: "",
+        description: "",
+        image: "",
     });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setAnimal((prev) => {
+        setPost((prev) => {
             return {
                 ...prev,
                 [name]: value,
@@ -23,111 +21,82 @@ const CreatePost = () => {
         });
     };
 
-    // Handle avatar selection from dropdown
-    const handleAvatarChange = (event) => {
-        const selectedAvatarName = event.target.value;
-        const selectedAvatar = avatarOptions.find(avatar => avatar.name === selectedAvatarName);
-        
-        if (selectedAvatar) {
-            setAnimal((prev) => {
-                return {
-                    ...prev,
-                    avatar: selectedAvatar.image,
-                    selectedAvatarName: selectedAvatarName
-                };
-            });
-        } else {
-            // If "Select an avatar" is chosen
-            setAnimal((prev) => {
-                return {
-                    ...prev,
-                    avatar: "",
-                    selectedAvatarName: ""
-                };
-            });
-        }
-    };
-
-    const createAnimal = async (event) => {
+    const createPost = async (event) => {
         event.preventDefault();
 
         // Validate input fields
-        if (!animal.name || !animal.superpower || !animal.avatar) {
-            alert("Please fill in all fields");
+        if (!post.title) {
+            alert("Title is required");
             return;
         }
 
-        // Insert the new animal into the database
+        // Insert the new post into the database
         const {} = await supabase
             .from('Posts')
             .insert({
-                name: animal.name,
-                superpower: animal.superpower,
-                avatar: animal.avatar
+                title: post.title,
+                description: post.description,
+                image: post.image,
+                likes: 0
             })
             .select();
 
-        navigate('/gallery');
+        navigate('/');
     };
 
     return (
         <div className="create-container">
-            <h1>Create New Animal</h1>
+            <h1>Create New Post</h1>
             <form className="create-form">
                 <div className="form-group">
-                    <label htmlFor="name">Animal Name</label>
+                    <label htmlFor="title">Title</label>
                     <input
                         type="text"
-                        id="name"
-                        name="name"
-                        value={animal.name}
+                        id="title"
+                        name="title"
+                        value={post.title}
                         onChange={handleChange}
-                        placeholder="Enter animal name"
+                        placeholder="Enter post title"
+                        required
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="superpower">Superpower</label>
-                    <input
-                        type="text"
-                        id="superpower"
-                        name="superpower"
-                        value={animal.superpower}
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={post.description}
                         onChange={handleChange}
-                        placeholder="Enter superpower"
+                        placeholder="Enter post description"
+                        rows="5"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="avatar">Avatar</label>
-                    <select 
-                        id="avatar" 
-                        name="avatar"
-                        onChange={handleAvatarChange}
-                        className="avatar-select"
-                        value={animal.selectedAvatarName}
-                    >
-                        <option value="">Select an avatar</option>
-                        {avatarOptions.map((avatar, index) => (
-                            <option key={index} value={avatar.name}>
-                                {avatar.name}
-                            </option>
-                        ))}
-                    </select>
+                    <label htmlFor="image">Image URL (Optional)</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={post.image}
+                        onChange={handleChange}
+                        placeholder="Enter image URL"
+                    />
                 </div>
 
-                {animal.avatar && (
-                    <div className="avatar-preview">
-                        <img src={animal.avatar} alt={animal.name || "Selected avatar"} />
+                {post.image && (
+                    <div className="image-preview">
+                        <img src={post.image} alt="Preview" />
                     </div>
                 )}
 
                 <div className="button-group">
-                    <button type="button" className="back-button" onClick={() => navigate('/gallery')}>
+                    <button type="button" className="back-button" onClick={() => navigate('/')}>
                         Cancel
                     </button>
-                    <button type="submit" className="create-button" onClick={createAnimal}>
-                        Create Animal
+                    <button type="submit" className="create-button" onClick={createPost}>
+                        Create Post
                     </button>
                 </div>
             </form>

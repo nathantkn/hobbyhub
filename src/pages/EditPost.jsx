@@ -2,58 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/EditPost.css';
 import { supabase } from '../Client';
-// import { avatarOptions } from '../utils/avatars';
 
 const EditPost = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [animal, setAnimal] = useState({
+    const [post, setPost] = useState({
         id: id,
-        name: "",
-        superpower: "",
-        avatar: "",
-        selectedAvatarName: "" // Track selected avatar name
+        title: "",
+        description: "",
+        image: "",
+        likes: 0
     });
 
-    // Helper function to get avatar name from image URL
-    const getAvatarNameFromImage = (imageUrl) => {
-        const matchingAvatar = avatarOptions.find(avatar => avatar.image === imageUrl);
-        return matchingAvatar ? matchingAvatar.name : "";
-    };
-
-    // Load data for the specific animal from database when component mounts
+    // Load data for the specific post from database when component mounts
     useEffect(() => {
-        const fetchAnimal = async () => {
+        const fetchPost = async () => {
             setLoading(true);
             
-            // Fetch specific animal by id from Supabase
-            const {data} = await supabase
+            // Fetch specific post by id from Supabase
+            const { data } = await supabase
                 .from('Posts')
                 .select('*')
                 .eq('id', id)
                 .single();
-
-            // Find which avatar name corresponds to the current image
-            const avatarName = getAvatarNameFromImage(data.avatar);
             
-            setAnimal({
+            setPost({
                 id: data.id,
-                name: data.name,
-                superpower: data.superpower,
-                avatar: data.avatar,
-                selectedAvatarName: avatarName
+                title: data.title,
+                description: data.description || "",
+                image: data.image || "",
+                likes: data.likes || 0
             });
             
             setLoading(false);
         };
 
-        fetchAnimal().catch(console.error);
+        fetchPost().catch(console.error);
     }, [id]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setAnimal((prev) => {
+        setPost((prev) => {
             return {
                 ...prev,
                 [name]: value,
@@ -61,129 +51,102 @@ const EditPost = () => {
         });
     };
 
-    // Handle avatar selection from dropdown
-    const handleAvatarChange = (event) => {
-        const selectedAvatarName = event.target.value;
-        const selectedAvatar = avatarOptions.find(avatar => avatar.name === selectedAvatarName);
-        
-        if (selectedAvatar) {
-            setAnimal((prev) => {
-                return {
-                    ...prev,
-                    avatar: selectedAvatar.image,
-                    selectedAvatarName: selectedAvatarName
-                };
-            });
-        } else {
-            // If "Select an avatar" is chosen
-            setAnimal((prev) => {
-                return {
-                    ...prev,
-                    avatar: "",
-                    selectedAvatarName: ""
-                };
-            });
-        }
-    };
-
-    const updateAnimal = async (event) => {
+    const updatePost = async (event) => {
         event.preventDefault();
 
         // Validate input fields
-        if (!animal.name || !animal.superpower || !animal.avatar) {
-            alert("Please fill in all fields");
+        if (!post.title) {
+            alert("Title is required");
             return;
         }
 
         const {} = await supabase
             .from('Posts')
             .update({
-                name: animal.name,
-                superpower: animal.superpower,
-                avatar: animal.avatar
+                title: post.title,
+                description: post.description,
+                image: post.image
             })
             .eq('id', id);
 
-        // Redirect to the animal's detail page on success
+        // Redirect to the post's detail page on success
         navigate(`/post/${id}`);
     };
 
-    const deleteAnimal = async (event) => {
+    const deletePost = async (event) => {
         event.preventDefault();
 
-        if (window.confirm("Are you sure you want to delete this animal?")) {
+        if (window.confirm("Are you sure you want to delete this post?")) {
             const {} = await supabase
                 .from('Posts')
                 .delete()
                 .eq('id', id);
 
-            navigate('/gallery');
+            navigate('/');
         }
     };
 
     if (loading) {
-        return <div className="edit-container">Loading animal details...</div>;
+        return <div className="edit-container">Loading post details...</div>;
     }
 
     return (
         <div className="edit-container">
-            <h1>Edit Animal</h1>
+            <h1>Edit Post</h1>
             <form className="edit-form">
                 <div className="form-group">
-                    <label htmlFor="name">Animal Name</label>
+                    <label htmlFor="title">Title</label>
                     <input
                         type="text"
-                        id="name"
-                        name="name"
-                        value={animal.name}
+                        id="title"
+                        name="title"
+                        value={post.title}
                         onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="superpower">Superpower</label>
-                    <input
-                        type="text"
-                        id="superpower"
-                        name="superpower"
-                        value={animal.superpower}
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={post.description}
                         onChange={handleChange}
+                        rows="5"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="avatar">Avatar</label>
-                    <select 
-                        id="avatar" 
-                        name="avatar" 
-                        value={animal.selectedAvatarName}
-                        onChange={handleAvatarChange}
-                        className="avatar-select"
-                    >
-                        <option value="">Select an avatar</option>
-                        {avatarOptions.map((avatar, index) => (
-                            <option key={index} value={avatar.name}>
-                                {avatar.name}
-                            </option>
-                        ))}
-                    </select>
+                    <label htmlFor="image">Image URL (Optional)</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={post.image}
+                        onChange={handleChange}
+                    />
                 </div>
 
-                {animal.avatar && (
-                    <div className="avatar-preview">
-                        <img src={animal.avatar} alt={animal.name || "Selected avatar"} />
+                {post.image && (
+                    <div className="image-preview">
+                        <img src={post.image} alt="Preview" />
                     </div>
                 )}
+
+                <div className="likes-info">
+                    <p>Current Likes: {post.likes}</p>
+                </div>
 
                 <div className="button-group">
                     <button type="button" className="back-button" onClick={() => navigate(`/post/${id}`)}>
                         Back
                     </button>
-                    <button type="submit" className="update-button" onClick={updateAnimal}>
-                        Update Animal
+                    <button type="submit" className="update-button" onClick={updatePost}>
+                        Update Post
                     </button>
-                    <button type="button" className="delete-button" onClick={deleteAnimal}>
-                        Delete Animal
+                    <button type="button" className="delete-button" onClick={deletePost}>
+                        Delete Post
                     </button>
                 </div>
             </form>
