@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { useRoutes, Link } from 'react-router-dom'
-import { supabase } from './Client'
+import { useRoutes, Link } from 'react-router-dom';
+import { supabase } from './Client';
 
-import SideNav from './components/SideNav'
-import CreatePost from './pages/CreatePost'
-import EditPost from './pages/EditPost'
-import PostDetails from './pages/PostDetails'
-import Gallery from './pages/Gallery';
+import TopNav  from './components/TopNav';
+import CreatePost from './pages/CreatePost';
+import EditPost from './pages/EditPost';
+import PostDetails from './pages/PostDetails';
+import Card from './components/Card';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -30,16 +30,29 @@ const App = () => {
   }, []);
 
   const HomePage = () => (
-    <div>
-      <div className="header">
-        <h1>Welcome to Party Animals!</h1>
+    <div className="home-container">
+      <div className="forum-header">
+        <h1>Welcome to UIC's Forum</h1>
+        <p>Join the conversation, share your thoughts, and connect with others.</p>
       </div>
-      {/* <img src={} className="hero-image" /> */}
-      <div className="app-description">
-        <h2>Discover Extraordinary Animals with Superpowers</h2>
-        <p>Party Animals is a fun place to explore and create your own collection of amazing animals, each with their unique superpowers!</p>
-        <p>Visit our Gallery to see all the incredible animals, or create your own powerful companion.</p>
-        <Link to="/gallery"><button className="gallery-button">Explore the Gallery</button></Link>
+      <div className="posts-container">
+        {posts && posts.length > 0 ? (
+          <div className="posts-grid">
+            {posts.map((post) => (
+              <Card 
+                id={post.id} 
+                name={post.title} 
+                superpower={post.description} 
+                avatar={post.image} 
+                key={post.id} 
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="no-posts-message">
+            <h2>No discussions yet. Be the first to start one!</h2>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -49,10 +62,6 @@ const App = () => {
     {
       path: "/",
       element: <HomePage />
-    },
-    {
-      path: "/gallery",
-      element: <Gallery data={posts} />
     },
     {
       path: "/post/:id",
@@ -70,7 +79,7 @@ const App = () => {
 
   return ( 
     <div className="App">
-      <SideNav />
+      <TopNav />
       <div className="content-container">
         {element}
       </div>
