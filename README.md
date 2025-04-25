@@ -23,7 +23,7 @@ The following **required** functionality is completed:
     - title 
     - upvotes count
   - Clicking on a post should direct the user to a new page for the selected post
-- [ ] **Users can view posts in different ways**
+- [x] **Users can view posts in different ways**
   - Users can sort posts by either:
     -  creation time
     -  upvotes count
@@ -62,7 +62,9 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* TopNav needs to disappear when create post
+* UI changes on comments and likes section
+* Still need to freeze main header
 
 ## Video Walkthrough
 

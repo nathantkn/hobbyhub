@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/TopNav.css';
 
 const TopNav = ({ onSearch, onSort }) => {
@@ -44,7 +44,7 @@ const TopNav = ({ onSearch, onSort }) => {
                         placeholder="Search posts..." 
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        onKeyPress={handleSearchSubmit}
+                        onKeyDown={handleSearchSubmit}
                     />
                 </div>
                 <div className="sort-dropdown">

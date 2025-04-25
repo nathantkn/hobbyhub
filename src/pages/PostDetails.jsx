@@ -12,6 +12,7 @@ const PostDetails = () => {
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState([]);
     const [commentsLoading, setCommentsLoading] = useState(true);
+    const [likesCount, setLikesCount] = useState(0);
     const navigate = useNavigate();
 
     const formatTimeAgo = (dateString) => {
@@ -62,7 +63,10 @@ const PostDetails = () => {
                 .eq('id', id)
                 .single();
                 
-            setPost(data);
+            if (data) {
+                setPost(data);
+                setLikesCount(data.likes || 0);
+            }
             setLoading(false);
         };
 
@@ -89,16 +93,31 @@ const PostDetails = () => {
     };
 
     const handleLike = async () => {
-        // Update likes count in database
-        const { data } = await supabase
-            .from('Posts')
-            .update({ likes: post.likes + 1 })
-            .eq('id', id)
-            .select();
-        
-        // Update local state
-        if (data) {
-            setPost({ ...post, likes: post.likes + 1 });
+        try {
+            // First update the UI immediately
+            const newLikesCount = likesCount + 1;
+            setLikesCount(newLikesCount);
+            
+            // Then update the database
+            const { data, error } = await supabase
+                .from('Posts')
+                .update({ likes: newLikesCount })
+                .eq('id', id)
+                .select();
+            
+            if (error) {
+                // If there was an error, revert the local state
+                console.error('Error updating likes:', error);
+                setLikesCount(likesCount);
+            }
+            // If the update was successful, update the post state too
+            else if (data && data.length > 0) {
+                setPost({ ...post, likes: data[0].likes });
+            }
+        } catch (err) {
+            console.error('Error in handleLike:', err);
+            // Revert on any error
+            setLikesCount(likesCount);
         }
     };
 
@@ -140,7 +159,7 @@ const PostDetails = () => {
                 </div>
                 
                 <div className="likes-section">
-                    <div className="likes-count">❤️ {post.likes || 0} likes</div>
+                    <div className="likes-count">❤️ {likesCount} likes</div>
                     <button className="like-button" onClick={handleLike}>
                         Like this post
                     </button>

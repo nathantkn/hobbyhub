@@ -44,6 +44,24 @@
     align-items: center;
 }
 
+.likes-button {
+    background-color: rgba(70, 70, 70, 0.7);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+    width: 10%;
+}
+
+.likes-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .post-time {
     color: rgba(255, 255, 255, 0.6);
     font-size: 14px;

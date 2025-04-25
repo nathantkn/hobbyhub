@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Comment.css';
 import { supabase } from '../Client';
 
 const Comment = ({ comment }) => {
+    const [likesCount, setLikesCount] = useState(comment.likes || 0);
 
     const formatTimeAgo = (dateString) => {
         if (!dateString) return "Unknown time";
@@ -42,11 +43,27 @@ const Comment = ({ comment }) => {
     };
 
     const handleLike = async () => {
-        const {} = await supabase
-            .from('Comments')
-            .update({ likes: (comment.likes || 0) + 1 })
-            .eq('id', comment.id)
-            .select();
+        try {
+            // First update the local state immediately for responsive UI
+            const newLikesCount = likesCount + 1;
+            setLikesCount(newLikesCount);
+            
+            // Then update the database
+            const { error } = await supabase
+                .from('Comments')
+                .update({ likes: newLikesCount })
+                .eq('id', comment.id);
+                
+            if (error) {
+                // If there was an error, revert the local state
+                console.error('Error updating likes:', error);
+                setLikesCount(likesCount);
+            }
+        } catch (err) {
+            console.error('Error in handleLike:', err);
+            // Revert on any error
+            setLikesCount(likesCount);
+        }
     };
 
     return (
@@ -57,7 +74,7 @@ const Comment = ({ comment }) => {
             <div className="comment-footer">
                 <span className="comment-time">{formatTimeAgo(comment.created_at)}</span>
                 <button className="comment-like-btn" onClick={handleLike}>
-                    ❤️ {comment.likes || 0}
+                    ❤️ {likesCount}
                 </button>
             </div>
         </div>

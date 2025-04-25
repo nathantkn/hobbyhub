@@ -25,10 +25,15 @@
 }
 
 .forum-header {
+  position: sticky;
+  top: 0;
   width: 100%;
+  background-color: #242424;
   color: white;
   text-align: center;
   margin-bottom: 40px;
+  padding: 20px 0;
+  z-index: 10;
 }
 
 .forum-header h1 {
@@ -41,22 +46,6 @@
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 30px;
 }
-
-/* .create-post-btn {
-  padding: 0.8em 1.8em;
-  font-size: 18px;
-  background-color: #1a1a1a;
-  color: white;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.create-post-btn:hover {
-  border-color: #646cff;
-  background-color: #2a2a2a;
-} */
 
 .posts-container {
   width: 100%;

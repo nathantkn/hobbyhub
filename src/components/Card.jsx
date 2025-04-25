@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Card.css'
-
+import { supabase } from '../Client'
 
 const Card = (props) =>  {
+    // Add local state to track likes
+    const [likesCount, setLikesCount] = useState(props.likes || 0);
 
     const formatTimeAgo = (dateString) => {
         if (!dateString) return "Unknown date";
@@ -43,6 +45,40 @@ const Card = (props) =>  {
         return `${years} ${years === 1 ? 'year' : 'years'} ago`;
     };
 
+    // Add a like handler function
+    const handleLike = async (e) => {
+        // Prevent the event from bubbling up to the Link component
+        e.preventDefault();
+        e.stopPropagation();
+        
+        try {
+            // First update the local state immediately for responsive UI
+            const newLikesCount = likesCount + 1;
+            setLikesCount(newLikesCount);
+            
+            // Then update the database
+            const { data, error } = await supabase
+                .from('Posts')
+                .update({ likes: newLikesCount })
+                .eq('id', props.id)
+                .select();
+            
+            if (error) {
+                // If there was an error, revert the local state
+                console.error('Error updating likes:', error);
+                setLikesCount(likesCount);
+            } 
+            // If the update was successful, notify the parent component
+            else if (data && data.length > 0 && props.onLike) {
+                props.onLike(props.id, data[0].likes);
+            }
+        } catch (err) {
+            console.error('Error in handleLike:', err);
+            // Revert on any error
+            setLikesCount(likesCount);
+        }
+    };
+
     return (
         <div className="Card">
             <Link to={'/post/'+ props.id} className="card-link">
@@ -60,7 +96,13 @@ const Card = (props) =>  {
                 )}
                 
                 <div className="post-stats">
-                    <span className="likes-count">❤️ {props.likes || 0}</span>
+                <button 
+                    className="likes-button" 
+                    onClick={handleLike}
+                    aria-label="Like this post"
+                >
+                    ❤️ {likesCount}
+                </button>
                     <span className="post-time">{formatTimeAgo(props.created_at)}</span>
                 </div>
             </Link>
