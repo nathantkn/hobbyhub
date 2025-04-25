@@ -1,0 +1,47 @@
+.comment {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+}
+
+.comment:hover {
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.comment-content {
+    color: white;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.comment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.comment-time {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.comment-like-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.comment-like-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}

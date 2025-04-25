@@ -33,7 +33,7 @@
 
 .post-stats {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
@@ -42,6 +42,11 @@
     font-size: 16px;
     display: flex;
     align-items: center;
+}
+
+.post-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
 }
 
 .card-link {

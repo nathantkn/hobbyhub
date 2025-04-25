@@ -15,6 +15,12 @@
     margin-bottom: 10px;
 }
 
+.post-header .post-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
 .post-content {
     display: flex;
     flex-direction: column;
@@ -116,4 +122,30 @@
     border-radius: 8px;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.comments-section {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.comments-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.comments-list {
+    margin-top: 30px;
+}
+
+.loading-comments, .no-comments {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    padding: 20px;
 }

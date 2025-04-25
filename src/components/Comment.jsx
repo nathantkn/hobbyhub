@@ -1,20 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import '../styles/Card.css'
+import React from 'react';
+import '../styles/Comment.css';
+import { supabase } from '../Client';
 
-
-const Card = (props) =>  {
+const Comment = ({ comment }) => {
 
     const formatTimeAgo = (dateString) => {
-        if (!dateString) return "Unknown date";
-
+        if (!dateString) return "Unknown time";
+        
         // Parse the PostgreSQL timestamp
         const date = new Date(dateString);
         const now = new Date();
-
+        
         const secondsAgo = Math.floor((now - date) / 1000);
 
-        // Calculate the appropriate time unit
         if (secondsAgo < 60) {
             return "Just now";
         }
@@ -43,29 +41,27 @@ const Card = (props) =>  {
         return `${years} ${years === 1 ? 'year' : 'years'} ago`;
     };
 
+    const handleLike = async () => {
+        const {} = await supabase
+            .from('Comments')
+            .update({ likes: (comment.likes || 0) + 1 })
+            .eq('id', comment.id)
+            .select();
+    };
+
     return (
-        <div className="Card">
-            <Link to={'/post/'+ props.id} className="card-link">
-                <h2 className="title">{props.title}</h2>
-                
-                {props.description && props.description.length > 0 && (
-                    <p className="description">{props.description.length > 100 
-                        ? `${props.description.substring(0, 100)}...` 
-                        : props.description}
-                    </p>
-                )}
-                
-                {props.image && (
-                    <img className="post-image" src={props.image} alt={props.title} />
-                )}
-                
-                <div className="post-stats">
-                    <span className="likes-count">❤️ {props.likes || 0}</span>
-                    <span className="post-time">{formatTimeAgo(props.created_at)}</span>
-                </div>
-            </Link>
+        <div className="comment">
+            <div className="comment-content">
+                <p>{comment.content}</p>
+            </div>
+            <div className="comment-footer">
+                <span className="comment-time">{formatTimeAgo(comment.created_at)}</span>
+                <button className="comment-like-btn" onClick={handleLike}>
+                    ❤️ {comment.likes || 0}
+                </button>
+            </div>
         </div>
     );
 };
 
-export default Card;
+export default Comment;
