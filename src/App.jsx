@@ -1,6 +1,6 @@
 import './App.css';
-import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useRoutes, useNavigate, useSearchParams } from 'react-router-dom';
 
 import TopNav from './components/TopNav';
 import CreatePost from './pages/CreatePost';
@@ -9,6 +9,30 @@ import PostDetails from './pages/PostDetails';
 import ReadPosts from './pages/ReadPosts';
 
 const App = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('newest');
+
+  // Initialize search from URL params if available
+  useEffect(() => {
+    const urlSearch = searchParams.get('search');
+    if (urlSearch) {
+      setSearchQuery(urlSearch);
+    }
+  }, [searchParams]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    // Update URL if needed but don't navigate (to avoid page refreshes)
+    if (window.location.pathname === '/') {
+      navigate(`/?search=${encodeURIComponent(query)}`, { replace: true });
+    }
+  };
+
+  const handleSort = (sortOption) => {
+    setSortBy(sortOption);
+  };
 
   const HomePage = () => (
     <div className="home-container">
@@ -16,7 +40,7 @@ const App = () => {
         <h1>Welcome to UIC's Forum</h1>
         <p>Join the conversation, share your thoughts, and connect with others.</p>
       </div>
-      <ReadPosts />
+      <ReadPosts searchQuery={searchQuery} sortBy={sortBy} />
     </div>
   );
 
@@ -42,7 +66,7 @@ const App = () => {
 
   return ( 
     <div className="App">
-      <TopNav />
+      <TopNav onSearch={handleSearch} onSort={handleSort} />
       <div className="content-container">
         {element}
       </div>
