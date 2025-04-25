@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { useRoutes, useNavigate, useSearchParams } from 'react-router-dom';
+import { useRoutes, useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 
 import TopNav from './components/TopNav';
 import CreatePost from './pages/CreatePost';
@@ -13,6 +13,7 @@ const App = () => {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
+  const location = useLocation();
 
   // Initialize search from URL params if available
   useEffect(() => {
@@ -64,9 +65,12 @@ const App = () => {
     }
   ]);
 
+  // Check if current path is the home page
+  const isHomePage = location.pathname === '/';
+
   return ( 
     <div className="App">
-      <TopNav onSearch={handleSearch} onSort={handleSort} />
+      {isHomePage && <TopNav onSearch={handleSearch} onSort={handleSort} />}
       <div className="content-container">
         {element}
       </div>
