@@ -58,11 +58,10 @@ The following **optional** features are implemented:
   - Users can set flags such as "Question" or "Opinion" while creating a post
   - Users can filter posts by flags on the home feed
   - Users can upload images directly from their local machine as an image file
-- [ ] Web app displays a loading animation whenever data is being fetched
+- [x] Web app displays a loading animation whenever data is being fetched
 
 The following **additional** features are implemented:
 
-* TopNav needs to disappear when create post
 * UI changes on comments and likes section
 * Still need to freeze main header
 

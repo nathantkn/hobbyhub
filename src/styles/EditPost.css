@@ -1,7 +1,6 @@
 .edit-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
     color: white;
 }
 
@@ -34,6 +33,11 @@ input, .avatar-select {
     padding-left: 10px;
     background-color: #333;
     color: white;
+}
+
+input[name="title"], input[name="image"] {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .avatar-select {

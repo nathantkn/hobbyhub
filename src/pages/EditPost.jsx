@@ -134,10 +134,6 @@ const EditPost = () => {
                     </div>
                 )}
 
-                <div className="likes-info">
-                    <p>Current Likes: {post.likes}</p>
-                </div>
-
                 <div className="button-group">
                     <button type="button" className="back-button" onClick={() => navigate(`/post/${id}`)}>
                         Back

@@ -151,24 +151,19 @@ const PostDetails = () => {
                     <img className="detail-image" src={post.image} alt={post.title} />
                 )}
                 <div className="post-description">
-                    {post.description ? (
-                        <p>{post.description}</p>
-                    ) : (
-                        <p className="no-description">No description provided</p>
-                    )}
+                    {post.description &&
+                        <p>{post.description}</p>}
                 </div>
                 
                 <div className="likes-section">
-                    <div className="likes-count">❤️ {likesCount} likes</div>
                     <button className="like-button" onClick={handleLike}>
-                        Like this post
+                        ❤️ {likesCount} likes
                     </button>
                 </div>
             </div>
 
             <div className="comments-section">
                 <h2>Comments ({comments.length})</h2>
-                <CommentForm postId={id} onCommentAdded={handleCommentAdded} />
                 
                 <div className="comments-list">
                     {commentsLoading ? (
@@ -181,6 +176,8 @@ const PostDetails = () => {
                         <p className="no-comments">No comments yet. Be the first to comment!</p>
                     )}
                 </div>
+
+                <CommentForm postId={id} onCommentAdded={handleCommentAdded} />
             </div>
             
             <div className="post-actions">

@@ -30,7 +30,7 @@
 }
 
 .comment-like-btn {
-    background: none;
+    background-color: rgba(50, 50, 50, 0.7);
     border: none;
     color: white;
     cursor: pointer;
@@ -40,6 +40,7 @@
     padding: 5px 8px;
     border-radius: 20px;
     transition: background-color 0.2s ease;
+    width: 6%;
 }
 
 .comment-like-btn:hover {

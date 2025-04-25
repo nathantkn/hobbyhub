@@ -40,7 +40,7 @@
 }
 
 .comment-submit-btn {
-    align-self: flex-end;
+    align-self: center;
     padding: 8px 20px;
     background-color: #1a1a1a;
     color: white;
@@ -49,6 +49,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: border-color 0.25s, background-color 0.25s;
+    width: 20%;
 }
 
 .comment-submit-btn:hover {

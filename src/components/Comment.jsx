@@ -72,10 +72,10 @@ const Comment = ({ comment }) => {
                 <p>{comment.content}</p>
             </div>
             <div className="comment-footer">
-                <span className="comment-time">{formatTimeAgo(comment.created_at)}</span>
                 <button className="comment-like-btn" onClick={handleLike}>
                     ❤️ {likesCount}
                 </button>
+                <span className="comment-time">{formatTimeAgo(comment.created_at)}</span>
             </div>
         </div>
     );

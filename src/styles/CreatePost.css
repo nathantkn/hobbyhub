@@ -1,7 +1,6 @@
 .create-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
     color: white;
 }
 
@@ -26,11 +25,14 @@
 }
 
 input, textarea, .avatar-select {
-    width: 100%;
+    /* width: 100%; */
     border-radius: 8px;
     border: 1px solid transparent;
     font-size: 18px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 4%;
+    padding-right: 63%;
     background-color: #333;
     color: white;
     font-family: inherit;
@@ -40,9 +42,15 @@ input {
     height: 45px;
 }
 
+input[name="title"], input[name="image"] {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 textarea {
     resize: vertical;
     min-height: 120px;
+    box-sizing: border-box;
 }
 
 input::placeholder, textarea::placeholder {
@@ -55,7 +63,8 @@ input::placeholder, textarea::placeholder {
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }

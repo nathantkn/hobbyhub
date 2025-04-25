@@ -38,7 +38,7 @@ const App = () => {
   const HomePage = () => (
     <div className="home-container">
       <div className="forum-header">
-        <h1>Welcome to UIC's Forum</h1>
+        <h1>Welcome to UIC's Forum!</h1>
         <p>Join the conversation, share your thoughts, and connect with others.</p>
       </div>
       <ReadPosts searchQuery={searchQuery} sortBy={sortBy} />
