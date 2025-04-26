@@ -2,9 +2,9 @@
 
 Submitted by: **Nathan Trinh**
 
-This web app: **insert description**
+This web app: **a forum platform where UIC students can create, share, and interact with posts about their interests.**
 
-Time spent: **6** hours spent in total
+Time spent: **9** hours spent in total
 
 ## Required Features
 
@@ -60,13 +60,8 @@ The following **optional** features are implemented:
   - Users can upload images directly from their local machine as an image file
 - [x] Web app displays a loading animation whenever data is being fetched
 
-The following **additional** features are implemented:
-
-* UI changes on comments and likes section
-* Still need to freeze main header
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/a/nrgih9S.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
