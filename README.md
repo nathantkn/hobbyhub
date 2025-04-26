@@ -64,4 +64,4 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/a/nrgih9S.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/a/to6Tejz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
